@@ -1,5 +1,4 @@
 from django import forms
-from .models import EnqueuedMessage
 from rapidsms.backends.http.forms import BaseHttpForm
 import logging
 
