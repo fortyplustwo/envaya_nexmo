@@ -10,6 +10,8 @@ class NexmoOutgoingBackend(BackendBase):
     It deals only with outgoing message cycle.
     '''
 
+    logger = logging.getLogger('envaya_nexmo.backend.NexmoOutgoingBackend')
+
     def configure(self, api_key=None, api_secret=None, sender_name='myNexmo', **kwargs):
         if api_key is None or api_secret is None:
             logger.exception("Nexmo's API Key or API Secret not supplied!")
