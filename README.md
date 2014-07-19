@@ -12,7 +12,7 @@ Then, in your project directory:
 ```
 $ git clone https://knightsamar@bitbucket.org/knightsamar/envaya_nexmo.git
 ```
-In `settings.py`:
+In `settings.py` put:
 
 Add `"envaya_nexmo"` to the list `INSTALLED_APPS`.
 
@@ -28,6 +28,7 @@ Add the following to `INSTALLED_BACKENDS`:
 ```
 
 In `urls.py` put:
+
 ```
 urlpatterns = patterns('',
     (r'^envaya_nexmo/', include('envaya_nexmo.urls')),
@@ -39,6 +40,23 @@ Finally, set up EnvayaSMS on an Android phone. See http://sms.envaya.org/install
 Once you have EnvayaSMS running, set URL to point to the `http://YOUR.SERVER.IP.ADDRESS:PORT/envaya_nexmo/`
 
 And now enjoy receiving SMSes through EnvayaSMS and sending them through Nexmo!
+
+Setting up logging
+==================
+
+This is an optional step. Setting up logging properly, will help you set troubleshoot any issues. 
+
+To setup the logger, add the following to your `settings.py` in the  LOGGING section.
+
+```
+        'envaya_nexmo' : {
+            'handlers' : ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+```
+
+This will direct all the logger messages to rapidsms-debug.log (or the relevant file configured in the handlers dictionary in your LOGGING settings.
 
 How does it work?
 =================
