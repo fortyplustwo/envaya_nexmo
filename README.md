@@ -20,10 +20,10 @@ Add the following to `INSTALLED_BACKENDS`:
 
 ```
     'envaya_nexmo': {
-        "ENGINE"    : "envaya_nexmo.backend.NexmoOutgoingBackend", #We have to register only the outgoing backend
+        "ENGINE"    : 'envaya_nexmo.backend.NexmoOutgoingBackend', #Register only the outgoing backend
         "api_key"   : 'API_KEY', #you will get this from Nexmo
         "api_secret": 'API_SECRET', #you will get this from Nexmo
-        "sender_name" : "HEWE", #check your local telecom regulator on whether you can use a custom shortcode
+        "sender_name" : 'HEWE', #check your local telecom regulator on whether you can use a custom shortcode
     }
 ```
 
@@ -43,11 +43,12 @@ And now enjoy receiving SMSes through EnvayaSMS and sending them through Nexmo!
 How does it work?
 =================
 
-There are 3 players in the whole scene:
+There are 4 players in the whole scene:
 
 1. EnvayaSMS Django app for RapidSMS (this application!)
 1. Your RapidSMS app (which also includes RapidSMS itself)
 1. EnvayaSMS Android app (which runs on the phone)
+1. Nexmo API (libpynexmo)
 
 ####Outgoing message cycle
 
