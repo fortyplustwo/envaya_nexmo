@@ -3,9 +3,9 @@ from .models import EnqueuedMessage
 from rapidsms.backends.http.forms import BaseHttpForm
 import logging
 
-logger = logging.getLogger('envayasms.views.EnvayaSMSBackendForm')
+logger = logging.getLogger('envaya_nexmo.forms.EnvayaSMSIncomingForm')
 
-class EnvayaSMSBackendForm(BaseHttpForm):
+class EnvayaSMSIncomingForm(BaseHttpForm):
     '''handles validation and cleaning up of incoming message'''
 
     def __init__(self, *args, **kwargs):
@@ -18,7 +18,7 @@ class EnvayaSMSBackendForm(BaseHttpForm):
         self.text_name = kwargs.pop('text_name', 'text')
         self.identity_name = kwargs.pop('identity_name', 'identity')
          
-        super(EnvayaSMSBackendForm, self).__init__(*args, **kwargs)
+        super(EnvayaSMSIncomingForm, self).__init__(*args, **kwargs)
         
         #The following two fields are non-mandatory because actions other than 'incoming' won't have them.
         self.fields[self.text_name] = forms.CharField(required=False)
@@ -54,17 +54,7 @@ class EnvayaSMSBackendForm(BaseHttpForm):
         elif action == 'outgoing':
 
             logger.info("Received a poll for outgoing message!")
-            messages = []
-
-            for m in EnqueuedMessage.objects.exclude(status = 's'):
-                messages.append({
-                        'to' : m.recipient,
-                        'message' : m.message,
-                        })
-                m.status = 's'
-                m.save()
-
-            return_data['events'] = [{'event': 'send', 'messages': messages}]
+            return_data['events'] = [{'event': 'log', 'message': "We do not deliver outgoing messages via EnvayaSMS Android app!"}]
 
         elif action == 'send_status':
             logger.error("NOT IMPLEMENTED: send_status action")
