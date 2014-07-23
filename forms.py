@@ -55,6 +55,10 @@ class EnvayaSMSIncomingForm(BaseHttpForm):
             logger.info("Received a poll for outgoing message!")
             return_data['events'] = [{'event': 'log', 'message': "We do not deliver outgoing messages via EnvayaSMS Android app!"}]
 
+        elif action == 'test':
+            logger.info("Received a test connection request!")
+            return_data['events'] = [{'event': 'log', 'message': "Alpha to Charlie: This software by FortyPlusTwo-Hewe rocks! :)"}]
+
         elif action == 'send_status':
             logger.error("NOT IMPLEMENTED: send_status action")
 
