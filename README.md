@@ -1,6 +1,7 @@
 #envaya_nexmo
 
 Custom RapidSMS backend using Nexmo for Outgoing and EnvayaSMS for incoming message cycles.
+Inspired and based upon https://github.com/dimagi/rapidsms-envaya
 
 Installation
 ============
