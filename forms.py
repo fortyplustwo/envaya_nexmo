@@ -42,12 +42,16 @@ class EnvayaSMSIncomingForm(BaseHttpForm):
         #determine our further PoA based on the action varible passed by envaya phone
         return_data['action'] = action
         return_data['events'] = {}
+        #add ISD code to any missing 'From' number missing it.
+        from_number = self.cleaned_data[self.identity_name]
+        if len(from_number) == 8 and from_number.startswith('7'):
+            from_number = '+257' + from_number
 
         if action == 'incoming':
             logger.info("We have an incoming message!")
 
             return_data['text']        = self.cleaned_data[self.text_name]
-            return_data['connection']  = self.lookup_connections([self.cleaned_data[self.identity_name]])[0]
+            return_data['connection']  = self.lookup_connections([from_number])[0]
             return_data['from_phone']  = self.cleaned_data['phone_number']
 
         elif action == 'outgoing':
@@ -75,4 +79,5 @@ class EnvayaSMSIncomingForm(BaseHttpForm):
             logger.exception("UNSUPPORTED ACTION %s requested by EnvayaSMS Android app" % action)
             raise NotImplementedError("Action %s not implemented!" % action)
 
+        print return_data
         return return_data
