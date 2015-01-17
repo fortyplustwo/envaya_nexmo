@@ -35,7 +35,7 @@ class NexmoOutgoingBackend(BackendBase):
         params = {
             'api_key': self.api_key,
             'api_secret': self.api_secret,
-            'type': 'unicode',
+            'type': 'text',
             'from': self.sender_name,
             'to': to,
             'text': message.encode('utf-8'),
@@ -53,12 +53,12 @@ class NexmoOutgoingBackend(BackendBase):
     def send(self, id_, text, identities, context = {}):
         '''
         This handles the actual part of outgoing message cycle.
+        This method is what is called by the router from RapidSMS
         '''
         self.logger.debug("id is %s" % id_)
         self.logger.debug("text is %s" % text)
         self.logger.debug("identities is %s" % type(identities))
         self.logger.debug("context is %s " % context)
-
 
         for i in identities:
             self.logger.debug("SMSing '%s' to '%s' via nexmo" % (text, i))
